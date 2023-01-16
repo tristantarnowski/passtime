@@ -1,0 +1,117 @@
+* {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* max-width: 1400px; */
+    max-width: max-content;
+    margin: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+h2 {
+    margin-bottom: 0.5rem;
+}
+
+#observer-location-container select,
+#observer-location-container button {
+    display: block;
+}
+
+form {
+    display: table;
+}
+
+form div,
+form p {
+    display: table-row;
+}
+
+form label,
+form input {
+    display: table-cell;
+    padding: 0.1rem;
+}
+
+button,
+input,
+select {
+    margin: 0.1rem;
+}
+
+#tle-container textarea {
+    display: block;
+    resize: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: monospace;
+}
+
+.container {
+    background-color: #f4f4f4;
+    padding: 0.5rem;
+    /* margin-top: 0.5rem;
+    margin-bottom: 0.5rem; */
+    border: 0.5rem solid white;
+    flex: 1;
+}
+
+#options-container,
+#tle-container {
+    flex: 2;
+}
+
+body>div {
+    border: 1px solid black;
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
+
+#compute-button {
+    display: block;
+    margin: 0 auto;
+    flex-basis: 100%;
+    padding: 0.1rem;
+}
+
+#orbit-info-table tbody {
+    display: inline-block;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #aaaaaa;
+    padding: 0.1rem;
+}
+
+#input-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+tbody {
+    vertical-align: top;
+}
+
+label {
+    white-space: nowrap;
+}
+
+#passes-table tbody {
+    border-bottom: 0.5rem solid #aaaaaa;
+}
