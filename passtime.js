@@ -107,8 +107,8 @@ function getPeriod(kozaiMeanMotion) {
     return period;
 }
 
-function compute() {
-    const satrec = satellite.twoline2satrec(globals.line1, globals.line2);
+function compute(line1, line2) {
+    const satrec = satellite.twoline2satrec(line1, line2);
 
     const station = {
         latitude: satellite.degreesToRadians(globals.latitude),
@@ -159,4 +159,4 @@ function makeRow(tBody, ...args) {
     }
 }
 
-document.getElementById("compute-button").addEventListener("click", compute, false);
+document.getElementById("compute-button").addEventListener("click", () => { compute(globals.line1, globals.line2) }, false);

@@ -1,6 +1,10 @@
 document.getElementById("tle-form").addEventListener("submit", event => { handleTleFormSubmit(event); event.preventDefault(); }, false);
 document.getElementById("tle-input").addEventListener("blur", handleTleInputBlur, false);
-handleTleInputBlur();
+
+fetchCelestrakTleByCatNum(55126);
+compute(globals.line1, globals.line2);
+
+
 
 function handleTleFormSubmit(event) {
     const catNumInput = event.target.elements["catnum-input"];
@@ -19,7 +23,7 @@ function fetchCelestrakTleByCatNum(catNum) {
     req.addEventListener("load", () => {
         updateTle(req.responseText);
     });
-    req.open("GET", url);
+    req.open("GET", url, false);
     req.send();
 }
 
