@@ -121,6 +121,7 @@ function compute(line1, line2) {
     const passes = getPasses(satrec, station, start, end, globals.minElevation);
 
     populateTable(passes);
+    displaySatrecInfo(satrec);
 }
 
 function populateTable(passes) {
@@ -151,8 +152,8 @@ function populateTable(passes) {
 }
 
 function makeRow(tBody, ...args) {
-    const tbody = tBody;
-    const row = tbody.insertRow();
+    // const tbody = tBody;
+    const row = tBody.insertRow();
     for (const arg of args) {
         const text_node = document.createTextNode(arg);
         row.insertCell().appendChild(text_node);
@@ -160,3 +161,48 @@ function makeRow(tBody, ...args) {
 }
 
 document.getElementById("compute-button").addEventListener("click", () => { compute(globals.line1, globals.line2) }, false);
+
+function getSemiMajorAxis(period) {
+    const mu = 398600441800000;
+    return Math.cbrt(mu * period ** 2 / (4 * Math.PI ** 2));
+}
+
+const earthRadius = 6378.135E3; // meters. WGS72 equatorial radius (to be consistent with spacetrack)
+
+function getApogeeHeight(semiMajorAxis, eccentricity) {
+    return semiMajorAxis * (1 + eccentricity) - earthRadius;
+}
+
+function getPerigeeHeight(semiMajorAxis, eccentricity) {
+    return semiMajorAxis * (1 - eccentricity) - earthRadius;
+}
+
+function displaySatrecInfo(satrec) {
+    // TODO get name from TLE
+    // TODO check if milliseconds are accurate
+    // TODO get COSPAR from TLE
+    const semiMajorAxis = getSemiMajorAxis(getPeriod(satrec.no_kozai));
+
+    const table = document.getElementById("orbit-info-table");
+    const tbody = document.createElement("tbody");
+
+    while (table.tBodies.length > 0) {
+        table.tBodies[0].remove();
+    }
+
+    makeRow(tbody, "Catalog Number", satrec.satnum);
+    makeRow(tbody, "Epoch", satellite.invjday(satrec.jdsatepoch).toISOString());
+    makeRow(tbody, "Mean Motion", satrec.no_kozai / 2 / Math.PI * 24 * 60 + " rev/day");
+    makeRow(tbody, "Orbital Period", getPeriod(satrec.no_kozai) / 60 + " minutes");
+    makeRow(tbody, "Semi-Major Axis", semiMajorAxis / 1000 + " km");
+    makeRow(tbody, "Eccentricity", satrec.ecco);
+    makeRow(tbody, "Apogee Height", getApogeeHeight(semiMajorAxis, satrec.ecco) / 1000 + " km");
+    makeRow(tbody, "Perigee Height", getPerigeeHeight(semiMajorAxis, satrec.ecco) / 1000 + " km");
+    makeRow(tbody, "Inclination", satellite.radiansToDegrees(satrec.inclo) + " degrees");
+    makeRow(tbody, "RAAN", satellite.radiansToDegrees(satrec.nodeo) + " degrees");
+    makeRow(tbody, "Arg of Perigee", satellite.radiansToDegrees(satrec.argpo) + " degrees");
+    makeRow(tbody, "Mean Anomaly", satellite.radiansToDegrees(satrec.mo) + " degrees");
+    makeRow(tbody, "B*", satrec.bstar);
+
+    table.appendChild(tbody);
+}
