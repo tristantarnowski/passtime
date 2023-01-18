@@ -191,17 +191,23 @@ function displaySatrecInfo(satrec) {
     }
 
     makeRow(tbody, "Catalog Number", satrec.satnum);
-    makeRow(tbody, "Epoch", satellite.invjday(satrec.jdsatepoch).toISOString());
-    makeRow(tbody, "Mean Motion", satrec.no_kozai / 2 / Math.PI * 24 * 60 + " rev/day");
-    makeRow(tbody, "Orbital Period", getPeriod(satrec.no_kozai) / 60 + " minutes");
-    makeRow(tbody, "Semi-Major Axis", semiMajorAxis / 1000 + " km");
-    makeRow(tbody, "Eccentricity", satrec.ecco);
-    makeRow(tbody, "Apogee Height", getApogeeHeight(semiMajorAxis, satrec.ecco) / 1000 + " km");
-    makeRow(tbody, "Perigee Height", getPerigeeHeight(semiMajorAxis, satrec.ecco) / 1000 + " km");
-    makeRow(tbody, "Inclination", satellite.radiansToDegrees(satrec.inclo) + " degrees");
-    makeRow(tbody, "RAAN", satellite.radiansToDegrees(satrec.nodeo) + " degrees");
-    makeRow(tbody, "Arg of Perigee", satellite.radiansToDegrees(satrec.argpo) + " degrees");
-    makeRow(tbody, "Mean Anomaly", satellite.radiansToDegrees(satrec.mo) + " degrees");
+
+    const epoch = satellite.invjday(satrec.jdsatepoch);
+    makeRow(tbody, "Epoch", epoch.toISOString());
+
+    // const currentDate = ;
+    const tleAge = new Date() - epoch; // ms
+    makeRow(tbody, "TLE Age", (tleAge / 86400000).toFixed(2) + " days");
+    makeRow(tbody, "Mean Motion", (satrec.no_kozai / 2 / Math.PI * 24 * 60).toFixed(8) + " rev/day");
+    makeRow(tbody, "Orbital Period", (getPeriod(satrec.no_kozai) / 60).toFixed(2) + " minutes");
+    makeRow(tbody, "Semi-Major Axis", (semiMajorAxis / 1000).toFixed(3) + " km");
+    makeRow(tbody, "Eccentricity", satrec.ecco.toFixed(7));
+    makeRow(tbody, "Apogee Height", (getApogeeHeight(semiMajorAxis, satrec.ecco) / 1000).toFixed(3) + " km");
+    makeRow(tbody, "Perigee Height", (getPerigeeHeight(semiMajorAxis, satrec.ecco) / 1000).toFixed(3) + " km");
+    makeRow(tbody, "Inclination", satellite.radiansToDegrees(satrec.inclo).toFixed(4) + " degrees");
+    makeRow(tbody, "RAAN", satellite.radiansToDegrees(satrec.nodeo).toFixed(4) + " degrees");
+    makeRow(tbody, "Arg of Perigee", satellite.radiansToDegrees(satrec.argpo).toFixed(4) + " degrees");
+    makeRow(tbody, "Mean Anomaly", satellite.radiansToDegrees(satrec.mo).toFixed(4) + " degrees");
     makeRow(tbody, "B*", satrec.bstar);
 
     table.appendChild(tbody);
