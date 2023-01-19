@@ -195,8 +195,13 @@ function displaySatrecInfo(satrec) {
     const epoch = satellite.invjday(satrec.jdsatepoch);
     makeRow(tbody, "Epoch", epoch.toISOString());
 
-    // const currentDate = ;
-    const tleAge = new Date() - epoch; // ms
+    const currentDate = new Date();
+    const tleAge = currentDate - epoch; // ms
+
+    const p = document.createElement("p");
+    p.textContent = "Computed " + currentDate.toString();
+    table.insertAdjacentElement("beforebegin", p);
+
     makeRow(tbody, "TLE Age", (tleAge / 86400000).toFixed(2) + " days");
     makeRow(tbody, "Mean Motion", (satrec.no_kozai / 2 / Math.PI * 24 * 60).toFixed(8) + " rev/day");
     makeRow(tbody, "Orbital Period", (getPeriod(satrec.no_kozai) / 60).toFixed(2) + " minutes");
