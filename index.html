@@ -13,64 +13,66 @@
 </head>
 
 <body>
-    <div id="input-container">
-        <div class="container" id="observer-location-container">
-            <h2>Observer Location</h2>
-            <button id="get-location-button">Get Browser Location</button>
-            <select id="locations-select">
-                <option disabled selected>Load Stored Location</option>
-            </select>
-            <p>Selected Location: <span class="location-name">UVic</span></p>
-            <form id="obs-form">
-                <div>
-                    <label for="obs-lat">Latitude</label>
-                    <input id="obs-lat">
-                    <label>degrees</label>
-                </div>
-                <div>
-                    <label for="obs-long">Longitude</label>
-                    <input id="obs-long">
-                    <label>degrees</label>
-                </div>
-                <div>
-                    <label for="obs-elevation">Elevation</label>
-                    <input id="obs-elevation">
-                    <label>meters</label>
-                </div>
-                <input type="submit" style="display:none">
-            </form>
-            <button id="store-location-button">Add To Stored Locations</button>
-            <button id="clear-stored-locations">Clear Stored Locations</button>
-        </div>
-        <div class="container" id="tle-container">
-            <h2>TLE</h2>
-            <form id="tle-form">
-                <label for="catnum-input">Fetch by Catalog ID</label>
-                <input name="catnum-input" type="number" min="0" max="99999" value="55126">
-                <button>Get TLE</button>
-            </form>
-            <textarea id="tle-input" class="tle-text" rows="3" cols="69" spellcheck="false"
-                placeholder="Paste TLE here, or fetch from Celestrak"></textarea>
-        </div>
-        <div class="container" id="options-container">
-            <h2>Pass Time Options</h2>
-            <form>
-                <div>
-                    <label for="min-elevation">Minimum Elevation</label>
-                    <input id="min-elevation" type="number" min="0" max="90" value="15">
-                    <label>degrees</label>
-                </div>
-                <div>
-                    <label for="num-days">Number of Days</label>
-                    <input id="num-days" type="number" min="0" value="3">
-                </div>
-                <div>
-                    <label for="timezone">Timezone</label>
-                    <select>
-                        <option>Select Timezone</option>
-                    </select>
-                </div>
-            </form>
+    <div>
+        <div id="input-container">
+            <div class="container" id="observer-location-container">
+                <h2>Observer Location</h2>
+                <button id="get-location-button">Get Browser Location</button>
+                <select id="locations-select">
+                    <option disabled selected>Load Stored Location</option>
+                </select>
+                <p>Selected Location: <span class="location-name">UVic</span></p>
+                <form id="obs-form">
+                    <div>
+                        <label for="obs-lat">Latitude</label>
+                        <input id="obs-lat">
+                        <label>degrees</label>
+                    </div>
+                    <div>
+                        <label for="obs-long">Longitude</label>
+                        <input id="obs-long">
+                        <label>degrees</label>
+                    </div>
+                    <div>
+                        <label for="obs-elevation">Elevation</label>
+                        <input id="obs-elevation">
+                        <label>meters</label>
+                    </div>
+                    <input type="submit" style="display:none">
+                </form>
+                <button id="store-location-button">Add To Stored Locations</button>
+                <button id="clear-stored-locations">Clear Stored Locations</button>
+            </div>
+            <div class="container" id="tle-container">
+                <h2>TLE</h2>
+                <form id="tle-form">
+                    <label for="catnum-input">Fetch by Catalog ID</label>
+                    <input name="catnum-input" type="number" min="0" max="99999" value="55126">
+                    <button>Get TLE</button>
+                </form>
+                <textarea id="tle-input" class="tle-text" rows="3" cols="69" spellcheck="false"
+                    placeholder="Paste TLE here, or fetch from Celestrak"></textarea>
+            </div>
+            <div class="container" id="options-container">
+                <h2>Pass Time Options</h2>
+                <form>
+                    <div>
+                        <label for="min-elevation">Minimum Elevation</label>
+                        <input id="min-elevation" type="number" min="0" max="90" value="15">
+                        <label>degrees</label>
+                    </div>
+                    <div>
+                        <label for="num-days">Number of Days</label>
+                        <input id="num-days" type="number" min="0" value="3">
+                    </div>
+                    <div>
+                        <label for="timezone">Timezone</label>
+                        <select>
+                            <option>Select Timezone</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
         <button id="compute-button">Compute</button>
     </div>
