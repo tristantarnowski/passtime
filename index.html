@@ -1,99 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="main.css">
-    <script src="location.js" defer></script>
-    <script src="options-input.js" defer></script>
-    <script src="satellite.js" defer></script>
-    <script src="passtime.js" defer></script>
-    <script src="tle-input.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passtime · Satellite Information & Passes</title>
+  <script type="module" crossorigin src="/assets/index-466cc611.js"></script>
+  <link rel="stylesheet" href="/assets/index-f229f969.css">
 </head>
 
 <body>
-    <div>
-        <div id="input-container">
-            <div class="container" id="observer-location-container">
-                <h2>Observer Location</h2>
-                <button id="get-location-button">Get Browser Location</button>
-                <select id="locations-select">
-                    <option disabled selected>Load Stored Location</option>
-                </select>
-                <p>Selected Location: <span class="location-name">UVic</span></p>
-                <form id="obs-form">
-                    <div>
-                        <label for="obs-lat">Latitude</label>
-                        <input id="obs-lat">
-                        <label>degrees</label>
-                    </div>
-                    <div>
-                        <label for="obs-long">Longitude</label>
-                        <input id="obs-long">
-                        <label>degrees</label>
-                    </div>
-                    <div>
-                        <label for="obs-elevation">Elevation</label>
-                        <input id="obs-elevation">
-                        <label>meters</label>
-                    </div>
-                    <input type="submit" style="display:none">
-                </form>
-                <button id="store-location-button">Add To Stored Locations</button>
-                <button id="clear-stored-locations">Clear Stored Locations</button>
-            </div>
-            <div class="container" id="tle-container">
-                <h2>TLE</h2>
-                <form id="tle-form">
-                    <label for="catnum-input">Fetch by Catalog ID</label>
-                    <input name="catnum-input" type="number" min="0" max="99999" value="55126">
-                    <button>Get TLE</button>
-                </form>
-                <textarea id="tle-input" class="tle-text" rows="3" cols="69" spellcheck="false"
-                    placeholder="Paste TLE here, or fetch from Celestrak"></textarea>
-            </div>
-            <div class="container" id="options-container">
-                <h2>Pass Time Options</h2>
-                <form>
-                    <div>
-                        <label for="min-elevation">Minimum Elevation</label>
-                        <input id="min-elevation" type="number" min="0" max="90" value="15">
-                        <label>degrees</label>
-                    </div>
-                    <div>
-                        <label for="num-days">Number of Days</label>
-                        <input id="num-days" type="number" min="0" value="3">
-                    </div>
-                    <div>
-                        <label for="timezone">Timezone</label>
-                        <select>
-                            <option>Select Timezone</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <button id="compute-button">Compute</button>
-    </div>
-    <div>
-        <h2>Satellite Information</h2>
-        <table id="orbit-info-table">
-
-        </table>
-    </div>
-    <div>
-        <h2>Upcoming Passes</h2>
-        <table id="passes-table">
-            <thead>
-                <tr>
-                    <th>Start Time (Local)</th>
-                    <th>Max Elevation (°)</th>
-                    <th>Duration (s)</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+  <div id="app"></div>
+  
 </body>
 
 </html>
