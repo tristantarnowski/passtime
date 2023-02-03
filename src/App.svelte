@@ -13,8 +13,12 @@
     import { degreesLong } from "satellite.js";
 
     let passes: Pass[] = [],
-        tleString = "",
-        catalogNumber = 55126;
+        tleString = "";
+
+    const url = new URL(window.location.href);
+
+    let catalogNumber = catalogNumberFromString(url.searchParams.get("id"));
+
     let sat: Satellite = null;
 
     let observer: Location = {
@@ -22,7 +26,27 @@
         longitude: -123.31,
     };
 
-    let numDays = 3,
+    function catalogNumberFromString(string: string): number {
+        const number = parseInt(string, 10);
+
+        if (0 <= number && number <= 99999) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function numDaysFromString(string: string): number {
+        const number = parseInt(string, 10);
+
+        if (number > 0) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    let numDays = numDaysFromString(url.searchParams.get("days")) || 3,
         minElev = 15;
 
     async function handleClickTleButton() {
@@ -59,9 +83,11 @@
     }
 
     onMount(() => {
-        handleTleSubmit().then(() => {
-            handleCompute();
-        });
+        if (catalogNumber) {
+            handleTleSubmit().then(() => {
+                handleCompute();
+            });
+        }
     });
 </script>
 
