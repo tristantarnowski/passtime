@@ -22,9 +22,39 @@
     let sat: Satellite = null;
 
     let observer: Location = {
-        latitude: 48.4612,
-        longitude: -123.31,
+        latitude: latitudeFromString(url.searchParams.get("lat")) || 0,
+        longitude: longitudeFromString(url.searchParams.get("long")) || 0,
     };
+
+    function minElevationFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (0 <= number && number <= 90) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function latitudeFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (-90 <= number && number <= 90) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function longitudeFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (-180 <= number && number <= 180) {
+            return number;
+        } else {
+            return null;
+        }
+    }
 
     function catalogNumberFromString(string: string): number {
         const number = parseInt(string, 10);
@@ -47,7 +77,7 @@
     }
 
     let numDays = numDaysFromString(url.searchParams.get("days")) || 3,
-        minElev = 15;
+        minElev = minElevationFromString(url.searchParams.get("elev")) || 0;
 
     async function handleClickTleButton() {
         tleString = (await fetchCelestrakTle(catalogNumber)).trim();
@@ -68,9 +98,12 @@
 
         url.searchParams.set("id", catalogNumber.toString());
         url.searchParams.set("days", numDays.toString());
+        url.searchParams.set("lat", observer.latitude.toString());
+        url.searchParams.set("long", observer.longitude.toString());
+        url.searchParams.set("elev", minElev.toString());
 
         if (url.toString() != window.location.href) {
-            window.history.pushState(null, "", url.toString());
+            window.history.replaceState(null, "", url.toString());
         }
     }
 
