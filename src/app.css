@@ -1,0 +1,94 @@
+:root {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --accent-color: #aaaaaa;
+  /* --main-bg-color: #f0f3f6; */
+  --main-bg-color: #f4f4f4;
+}
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* https://www.pinterest.ca/jackgannon/dashboard-single-page-app-ui/ */
+body {
+  width: fit-content;
+  max-width: 1100px;
+  margin: auto;
+  background-color: var(--main-bg-color);
+}
+
+#app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin: 0 1rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+section {
+  background-color: white;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tbody,
+th,
+td {
+  /* border: 1px solid var(--accent-color); */
+}
+
+
+
+main>section:first-child {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: #647380;
+  color: var(--main-bg-color);
+}
+
+footer {
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background-color: #647380;
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.2);
+}
+
+textarea {
+  resize: none;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  font-family: monospace;
+}
+
+
+button {
+  border-radius: .25rem;
+  border: .15rem solid transparent;
+  cursor: pointer;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--main-bg-color);
+  /* margin: 5px; */
+  vertical-align: middle;
+  transition: all 0.25s;
+}
+
+button:active {
+  border-color: #848a96;
+}
