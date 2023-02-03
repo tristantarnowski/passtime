@@ -65,6 +65,13 @@
         passes = [];
         sat = new Satellite(tle);
         passes = sat.getPasses(observer, start, end, minElev);
+
+        url.searchParams.set("id", catalogNumber.toString());
+        url.searchParams.set("days", numDays.toString());
+
+        if (url.toString() != window.location.href) {
+            window.history.pushState(null, "", url.toString());
+        }
     }
 
     function handleTextAreaBlur() {
