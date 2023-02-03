@@ -13,17 +13,71 @@
     import { degreesLong } from "satellite.js";
 
     let passes: Pass[] = [],
-        tleString = "",
-        catalogNumber = 55126;
+        tleString = "";
+
+    const url = new URL(window.location.href);
+
+    let catalogNumber = catalogNumberFromString(url.searchParams.get("id"));
+
     let sat: Satellite = null;
 
     let observer: Location = {
-        latitude: 48.4612,
-        longitude: -123.31,
+        latitude: latitudeFromString(url.searchParams.get("lat")) || 0,
+        longitude: longitudeFromString(url.searchParams.get("long")) || 0,
     };
 
-    let numDays = 3,
-        minElev = 15;
+    function minElevationFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (0 <= number && number <= 90) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function latitudeFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (-90 <= number && number <= 90) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function longitudeFromString(string: string): number {
+        const number = parseFloat(string);
+
+        if (-180 <= number && number <= 180) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function catalogNumberFromString(string: string): number {
+        const number = parseInt(string, 10);
+
+        if (0 <= number && number <= 99999) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    function numDaysFromString(string: string): number {
+        const number = parseInt(string, 10);
+
+        if (number > 0) {
+            return number;
+        } else {
+            return null;
+        }
+    }
+
+    let numDays = numDaysFromString(url.searchParams.get("days")) || 3,
+        minElev = minElevationFromString(url.searchParams.get("elev")) || 0;
 
     async function handleClickTleButton() {
         tleString = (await fetchCelestrakTle(catalogNumber)).trim();
@@ -41,6 +95,16 @@
         passes = [];
         sat = new Satellite(tle);
         passes = sat.getPasses(observer, start, end, minElev);
+
+        url.searchParams.set("id", catalogNumber.toString());
+        url.searchParams.set("lat", observer.latitude.toString());
+        url.searchParams.set("long", observer.longitude.toString());
+        url.searchParams.set("days", numDays.toString());
+        url.searchParams.set("elev", minElev.toString());
+
+        if (url.toString() != window.location.href) {
+            window.history.replaceState(null, "", url.toString());
+        }
     }
 
     function handleTextAreaBlur() {
@@ -59,9 +123,11 @@
     }
 
     onMount(() => {
-        handleTleSubmit().then(() => {
-            handleCompute();
-        });
+        if (catalogNumber) {
+            handleTleSubmit().then(() => {
+                handleCompute();
+            });
+        }
     });
 </script>
 
