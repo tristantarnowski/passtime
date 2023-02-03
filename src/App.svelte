@@ -10,6 +10,7 @@
     import InfoTable from "./components/InfoTable.svelte";
     import Footer from "./components/Footer.svelte";
     import { onMount } from "svelte";
+    import { degreesLong } from "satellite.js";
 
     let passes: Pass[] = [],
         tleString = "",
@@ -69,8 +70,12 @@
         <div class="flex-container">
             <div>
                 <h3>Location</h3>
-                <p>Latitude: {observer.latitude}</p>
-                <p>Longitude: {observer.longitude}</p>
+                <form>
+                    <label>Latitude</label>
+                    <input bind:value={observer.latitude} />
+                    <label>Longitude</label>
+                    <input bind:value={observer.longitude} />
+                </form>
             </div>
             <div>
                 <h3>TLE</h3>
@@ -80,8 +85,15 @@
                     on:submit|preventDefault={handleTleSubmit}
                 >
                     <label>Fetch by Catalog ID</label>
-                    <input type="number" min="0" max="99999" bind:value={catalogNumber} />
-                    <button on:click={handleClickTleButton} type="submit">Get TLE</button>
+                    <input
+                        type="number"
+                        min="0"
+                        max="99999"
+                        bind:value={catalogNumber}
+                    />
+                    <button on:click={handleClickTleButton} type="submit"
+                        >Get TLE</button
+                    >
                 </form>
                 <textarea
                     rows="3"
@@ -103,7 +115,9 @@
                 </form>
             </div>
         </div>
-        <button class="full-width space-top highlight" on:click={handleCompute}>Compute</button>
+        <button class="full-width space-top highlight" on:click={handleCompute}
+            >Compute</button
+        >
     </section>
     <section>
         <h2>TLE Information</h2>
