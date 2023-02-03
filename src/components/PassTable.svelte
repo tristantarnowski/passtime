@@ -33,7 +33,7 @@
     <thead>
         <tr>
             <th>Start Time (Local)</th>
-            <th>Max Elevation</th>
+            <th>Max Elevation (°)</th>
             <th>Duration (s)</th>
         </tr>
     </thead>
@@ -73,10 +73,6 @@
     }
 
     tbody tr:hover {
-        background-color: #d9e6ff;
-    }
-
-    select {
-        font-size: 0.875rem;
+        background-color: #e7e7e7;
     }
 </style>
