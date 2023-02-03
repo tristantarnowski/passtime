@@ -97,9 +97,9 @@
         passes = sat.getPasses(observer, start, end, minElev);
 
         url.searchParams.set("id", catalogNumber.toString());
-        url.searchParams.set("days", numDays.toString());
         url.searchParams.set("lat", observer.latitude.toString());
         url.searchParams.set("long", observer.longitude.toString());
+        url.searchParams.set("days", numDays.toString());
         url.searchParams.set("elev", minElev.toString());
 
         if (url.toString() != window.location.href) {
