@@ -16,7 +16,10 @@
         let groups = [[]];
 
         for (const pass of passes) {
-            if (pass.start.time.getTime() - prevStartTime.getTime() > maxTimeBetween) {
+            if (
+                pass.start.time.getTime() - prevStartTime.getTime() >
+                maxTimeBetween
+            ) {
                 groups.push([]);
             }
 
@@ -27,12 +30,76 @@
 
         return groups;
     }
+
+    enum Format {
+        short12,
+        short24,
+        default,
+    }
+
+    function formatDate(date: Date, format: Format, utc?: boolean): string {
+        let options: Intl.DateTimeFormatOptions = {
+            weekday: "long",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZone: utc ? "UTC" : undefined,
+        };
+
+        switch (format) {
+            case Format.short12:
+                options.hour12 = true;
+                return new Intl.DateTimeFormat("en", options).format(date);
+
+            case Format.short24:
+                options.hour12 = false;
+                return new Intl.DateTimeFormat("en", options).format(date);
+
+            case Format.default:
+                if (utc) {
+                    return date.toUTCString();
+                } else {
+                    return date.toLocaleString();
+                }
+        }
+    }
+
+    const formats = [
+        { text: "Short 12-hour", format: Format.short12 },
+        { text: "Short 24-hour", format: Format.short24 },
+        { text: "Browser Default", format: Format.default },
+    ];
+
+    const timezones = [
+        { text: "Local", utc: false },
+        { text: "UTC", utc: true },
+    ];
+
+    let selectedFormat;
+    let isUTC;
 </script>
+
+<select bind:value={isUTC}>
+    {#each timezones as timezone}
+        <option value={timezone.utc}>
+            {timezone.text}
+        </option>
+    {/each}
+</select>
+<select bind:value={selectedFormat}>
+    {#each formats as format}
+        <option value={format.format}>
+            {format.text}
+        </option>
+    {/each}
+</select>
 
 <table>
     <thead>
         <tr>
-            <th>Start Time (Local)</th>
+            <th>Start Time ({isUTC ? "UTC" : "Local"})</th>
             <th>Max Elevation (°)</th>
             <th>Duration (s)</th>
         </tr>
@@ -41,14 +108,19 @@
         <tbody>
             {#each group as pass}
                 <tr>
-                    <td>{pass.start.time.toLocaleString()}</td>
-                    <td class="center"
-                        >{satellite.radiansToDegrees(pass.max.altaz.elevation).toFixed(1)}</td
+                    <td>{formatDate(pass.start.time, selectedFormat, isUTC)}</td
                     >
                     <td class="center"
-                        >{((pass.end.time.getTime() - pass.start.time.getTime()) / 1000).toFixed(
-                            0
-                        )}</td
+                        >{satellite
+                            .radiansToDegrees(pass.max.altaz.elevation)
+                            .toFixed(1)}</td
+                    >
+                    <td class="center"
+                        >{(
+                            (pass.end.time.getTime() -
+                                pass.start.time.getTime()) /
+                            1000
+                        ).toFixed(0)}</td
                     >
                 </tr>
             {:else}
