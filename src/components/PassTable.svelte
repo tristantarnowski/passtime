@@ -66,6 +66,14 @@
         }
     }
 
+    function getLocaleTimezoneAbbreviation() {
+        const tz = new Intl.DateTimeFormat("en-us", { timeZoneName: "short" })
+            .formatToParts(new Date())
+            .find((part) => part.type == "timeZoneName").value;
+
+        return tz;
+    }
+
     const formats = [
         { text: "Short 12-hour", format: Format.short12 },
         { text: "Short 24-hour", format: Format.short24 },
@@ -99,7 +107,11 @@
 <table>
     <thead>
         <tr>
-            <th>Start Time ({isUTC ? "UTC" : "Local"})</th>
+            <th
+                >Start Time ({isUTC
+                    ? "UTC"
+                    : getLocaleTimezoneAbbreviation()})</th
+            >
             <th>Max Elevation (°)</th>
             <th>Duration (s)</th>
         </tr>
