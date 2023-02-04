@@ -122,6 +122,13 @@
         }
     }
 
+    function handleGeolocate() {
+        navigator.geolocation.getCurrentPosition((position) => {
+            observer.latitude = position.coords.latitude;
+            observer.longitude = position.coords.longitude;
+        });
+    }
+
     onMount(() => {
         if (catalogNumber) {
             handleTleSubmit().then(() => {
@@ -136,6 +143,7 @@
         <div class="flex-container">
             <div>
                 <h3>Location</h3>
+                <button on:click={handleGeolocate}>Get Browser Location</button>
                 <form>
                     <label>Latitude</label>
                     <input bind:value={observer.latitude} />
