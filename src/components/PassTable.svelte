@@ -94,18 +94,29 @@
         { text: "UTC", utc: true },
     ];
 
-    let selectedFormat;
-    let isUTC;
+    let selectedFormat =
+        JSON.parse(localStorage.getItem("selectedFormat")) || Format.short12;
+    let isUTC = JSON.parse(localStorage.getItem("isUTC")) || false;
 </script>
 
-<select bind:value={isUTC}>
+<select
+    bind:value={isUTC}
+    on:change={() => {
+        localStorage.setItem("isUTC", JSON.stringify(isUTC));
+    }}
+>
     {#each timezones as timezone}
         <option value={timezone.utc}>
             {timezone.text}
         </option>
     {/each}
 </select>
-<select bind:value={selectedFormat}>
+<select
+    bind:value={selectedFormat}
+    on:change={() => {
+        localStorage.setItem("selectedFormat", JSON.stringify(selectedFormat));
+    }}
+>
     {#each formats as format}
         <option value={format.format}>
             {format.text}
