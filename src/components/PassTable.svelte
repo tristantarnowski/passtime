@@ -59,8 +59,11 @@
                 return new Intl.DateTimeFormat("en", options).format(date);
 
             case Format.iso:
-                isUTC = true;
-                return date.toISOString();
+                if (utc) {
+                    return date.toISOString();
+                } else {
+                    return date.toLocaleString("sv").replace(" ", "T");
+                }
 
             case Format.default:
                 if (utc) {
