@@ -99,6 +99,7 @@
     let isUTC = JSON.parse(localStorage.getItem("isUTC")) || false;
 </script>
 
+<label>Timezone</label>
 <select
     bind:value={isUTC}
     on:change={() => {
@@ -111,6 +112,7 @@
         </option>
     {/each}
 </select>
+<label>Format</label>
 <select
     bind:value={selectedFormat}
     on:change={() => {
