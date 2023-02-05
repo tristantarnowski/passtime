@@ -34,6 +34,7 @@
     enum Format {
         short12,
         short24,
+        iso,
         default,
     }
 
@@ -57,6 +58,10 @@
                 options.hour12 = false;
                 return new Intl.DateTimeFormat("en", options).format(date);
 
+            case Format.iso:
+                isUTC = true;
+                return date.toISOString();
+
             case Format.default:
                 if (utc) {
                     return date.toUTCString();
@@ -77,6 +82,7 @@
     const formats = [
         { text: "Short 12-hour", format: Format.short12 },
         { text: "Short 24-hour", format: Format.short24 },
+        { text: "ISO1806", format: Format.iso },
         { text: "Browser Default", format: Format.default },
     ];
 
