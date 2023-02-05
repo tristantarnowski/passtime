@@ -82,7 +82,7 @@
     const formats = [
         { text: "Short 12-hour", format: Format.short12 },
         { text: "Short 24-hour", format: Format.short24 },
-        { text: "ISO1806", format: Format.iso },
+        { text: "ISO 8601", format: Format.iso },
         { text: "Browser Default", format: Format.default },
     ];
 
