@@ -25,20 +25,19 @@
             <tr><th>Eccentricity</th><td>{sat.satrec.ecco}</td></tr>
             <!-- <tr><th>Apogee Height</th><td>{sat.satrec.a}</td></tr> -->
             <!-- <tr><th>Perigee Height</th><td>{sat.satrec.satnum}</td></tr> -->
-            <tr
-                ><th>Inclination</th><td>{satellite.radiansToDegrees(sat.satrec.inclo)} degrees</td
-                ></tr
-            >
+            <tr>
+                <th>Inclination</th>
+                <td>{satellite.radiansToDegrees(sat.satrec.inclo)} degrees</td>
+            </tr>
             <tr><th>RAAN</th><td>{satellite.radiansToDegrees(sat.satrec.nodeo)} degrees</td></tr>
-            <tr
-                ><th>Arg of Perigee</th><td
-                    >{satellite.radiansToDegrees(sat.satrec.argpo)} degrees</td
-                ></tr
-            >
-            <tr
-                ><th>Mean Anomaly</th><td>{satellite.radiansToDegrees(sat.satrec.mo)} degrees</td
-                ></tr
-            >
+            <tr>
+                <th>Arg of Perigee</th>
+                <td>{satellite.radiansToDegrees(sat.satrec.argpo)} degrees</td>
+            </tr>
+            <tr>
+                <th>Mean Anomaly</th>
+                <td>{satellite.radiansToDegrees(sat.satrec.mo)} degrees</td>
+            </tr>
             <tr><th>B*</th><td>{sat.satrec.bstar}</td></tr>
         {:else}
             <tr><th>Name</th></tr>

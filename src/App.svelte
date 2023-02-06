@@ -159,15 +159,8 @@
                     on:submit|preventDefault={handleTleSubmit}
                 >
                     <label>Fetch by Catalog ID</label>
-                    <input
-                        type="number"
-                        min="0"
-                        max="99999"
-                        bind:value={catalogNumber}
-                    />
-                    <button on:click={handleClickTleButton} type="submit"
-                        >Get TLE</button
-                    >
+                    <input type="number" min="0" max="99999" bind:value={catalogNumber} />
+                    <button on:click={handleClickTleButton} type="submit">Get TLE</button>
                 </form>
                 <textarea
                     rows="3"
@@ -189,9 +182,7 @@
                 </form>
             </div>
         </div>
-        <button class="full-width space-top highlight" on:click={handleCompute}
-            >Compute</button
-        >
+        <button class="full-width space-top highlight" on:click={handleCompute}>Compute</button>
     </section>
     <section>
         <h2>TLE Information</h2>

@@ -16,10 +16,7 @@
         let groups = [[]];
 
         for (const pass of passes) {
-            if (
-                pass.start.time.getTime() - prevStartTime.getTime() >
-                maxTimeBetween
-            ) {
+            if (pass.start.time.getTime() - prevStartTime.getTime() > maxTimeBetween) {
                 groups.push([]);
             }
 
@@ -94,8 +91,7 @@
         { text: "UTC", utc: true },
     ];
 
-    let selectedFormat =
-        JSON.parse(localStorage.getItem("selectedFormat")) || Format.short12;
+    let selectedFormat = JSON.parse(localStorage.getItem("selectedFormat")) || Format.short12;
     let isUTC = JSON.parse(localStorage.getItem("isUTC")) || false;
 </script>
 
@@ -129,11 +125,7 @@
 <table>
     <thead>
         <tr>
-            <th
-                >Start Time ({isUTC
-                    ? "UTC"
-                    : getLocaleTimezoneAbbreviation()})</th
-            >
+            <th>Start Time ({isUTC ? "UTC" : getLocaleTimezoneAbbreviation()})</th>
             <th>Max Elevation (°)</th>
             <th>Duration (s)</th>
         </tr>
@@ -142,23 +134,18 @@
         <tbody>
             {#each group as pass}
                 <tr>
-                    <td>{formatDate(pass.start.time, selectedFormat, isUTC)}</td
-                    >
-                    <td class="center"
-                        >{satellite
-                            .radiansToDegrees(pass.max.altaz.elevation)
-                            .toFixed(1)}</td
-                    >
-                    <td class="center"
-                        >{(
-                            (pass.end.time.getTime() -
-                                pass.start.time.getTime()) /
-                            1000
-                        ).toFixed(0)}</td
-                    >
+                    <td>{formatDate(pass.start.time, selectedFormat, isUTC)}</td>
+                    <td class="center">
+                        {satellite.radiansToDegrees(pass.max.altaz.elevation).toFixed(1)}
+                    </td>
+                    <td class="center">
+                        {((pass.end.time.getTime() - pass.start.time.getTime()) / 1000).toFixed(0)}
+                    </td>
                 </tr>
             {:else}
-                <tr><td colspan="3">No passes found</td></tr>
+                <tr>
+                    <td colspan="3">No passes found</td>
+                </tr>
             {/each}
         </tbody>
     {/each}
