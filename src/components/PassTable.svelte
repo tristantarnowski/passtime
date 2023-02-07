@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Pass } from "../passtime/passtime";
     import * as satellite from "satellite.js";
+    import { DateTime } from "luxon";
 
     export let passes: Pass[];
     export let maxSecondsBetween: number = Infinity;
@@ -36,39 +37,36 @@
     }
 
     function formatDate(date: Date, format: Format, utc?: boolean): string {
-        let options: Intl.DateTimeFormatOptions = {
-            weekday: "long",
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            timeZone: utc ? "UTC" : undefined,
-        };
+        let dateTime = DateTime.fromJSDate(date),
+            string = "";
+
+        if (utc) {
+            dateTime = dateTime.toUTC();
+        }
 
         switch (format) {
             case Format.short12:
-                options.hour12 = true;
-                return new Intl.DateTimeFormat("en", options).format(date);
+                string = dateTime.toFormat("ccc LLL d tt");
+                break;
 
             case Format.short24:
-                options.hour12 = false;
-                return new Intl.DateTimeFormat("en", options).format(date);
+                string = dateTime.toFormat("ccc LLL d TT");
+                break;
 
             case Format.iso:
-                if (utc) {
-                    return date.toISOString();
-                } else {
-                    return date.toLocaleString("sv").replace(" ", "T");
-                }
+                string = dateTime.toISO();
+                break;
 
             case Format.default:
                 if (utc) {
-                    return date.toUTCString();
+                    string = date.toUTCString();
                 } else {
-                    return date.toLocaleString();
+                    string = date.toLocaleString();
                 }
+                break;
         }
+
+        return string;
     }
 
     function getLocaleTimezoneAbbreviation() {
@@ -93,6 +91,9 @@
 
     let selectedFormat = JSON.parse(localStorage.getItem("selectedFormat")) || Format.short12;
     let isUTC = JSON.parse(localStorage.getItem("isUTC")) || false;
+
+    const d = DateTime.fromJSDate(new Date());
+    console.log(d.toISO());
 </script>
 
 <label>Timezone</label>
