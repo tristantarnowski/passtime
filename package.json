@@ -20,6 +20,8 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
+    "@types/luxon": "^3.2.0",
+    "luxon": "^3.2.1",
     "normalize.css": "^8.0.1",
     "satellite.js": "^5.0.0"
   }
