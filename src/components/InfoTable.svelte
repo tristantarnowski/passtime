@@ -7,55 +7,45 @@
     let tleAge = 0,
         period = null;
 
+    let rows = new Map();
+    rows.set("Name", []);
+    rows.set("Catalog Number", []);
+    rows.set("Epoch", []);
+    rows.set("TLE Age", []);
+    rows.set("Eccentricity", []);
+    rows.set("Inclination", []);
+    rows.set("RAAN", []);
+    rows.set("Arg of Perigee", []);
+    rows.set("Mean Anomaly", []);
+    rows.set("B*", []);
+
     $: if (sat) {
         tleAge = Date.now() - sat.epochDate.getTime();
+
+        rows.set("Name", [sat.name]);
+        rows.set("Catalog Number", [sat.satrec.satnum]);
+        rows.set("Epoch", [sat.epochDate.toISOString()]);
+        rows.set("TLE Age", [(tleAge / 86400000).toFixed(2) + " days"]);
+        rows.set("Eccentricity", [sat.satrec.ecco]);
+        rows.set("Inclination", [satellite.radiansToDegrees(sat.satrec.inclo) + " degrees"]);
+        rows.set("RAAN", [satellite.radiansToDegrees(sat.satrec.nodeo) + " degrees"]);
+        rows.set("Arg of Perigee", [satellite.radiansToDegrees(sat.satrec.argpo) + " degrees"]);
+        rows.set("Mean Anomaly", [satellite.radiansToDegrees(sat.satrec.mo) + " degrees"]);
+        rows.set("B*", [sat.satrec.bstar]);
+        rows = rows;
     }
 </script>
 
 <table>
     <tbody>
-        {#if sat}
-            <tr><th>Name</th><td>{sat.name}</td></tr>
-            <tr><th>Catalog Number</th><td>{sat.satrec.satnum}</td></tr>
-            <tr><th>Epoch</th><td>{sat.epochDate.toISOString()}</td></tr>
-            <tr><th>TLE Age</th><td>{(tleAge / 86400000).toFixed(2)} days</td></tr>
-            <!-- <tr><th>Mean Motion</th><td>{sat.satrec.no}</td></tr> -->
-            <!-- <tr><th>Orbital Period</th><td>{period}</td></tr> -->
-            <!-- <tr><th>Semi-Major Axis</th><td>{sat.satrec.a}</td></tr> -->
-            <tr><th>Eccentricity</th><td>{sat.satrec.ecco}</td></tr>
-            <!-- <tr><th>Apogee Height</th><td>{sat.satrec.a}</td></tr> -->
-            <!-- <tr><th>Perigee Height</th><td>{sat.satrec.satnum}</td></tr> -->
+        {#each [...rows] as [key, value]}
             <tr>
-                <th>Inclination</th>
-                <td>{satellite.radiansToDegrees(sat.satrec.inclo)} degrees</td>
+                <th>{key}</th>
+                {#each value as data}
+                    <td>{data}</td>
+                {/each}
             </tr>
-            <tr><th>RAAN</th><td>{satellite.radiansToDegrees(sat.satrec.nodeo)} degrees</td></tr>
-            <tr>
-                <th>Arg of Perigee</th>
-                <td>{satellite.radiansToDegrees(sat.satrec.argpo)} degrees</td>
-            </tr>
-            <tr>
-                <th>Mean Anomaly</th>
-                <td>{satellite.radiansToDegrees(sat.satrec.mo)} degrees</td>
-            </tr>
-            <tr><th>B*</th><td>{sat.satrec.bstar}</td></tr>
-        {:else}
-            <tr><th>Name</th></tr>
-            <tr><th>Catalog Number</th></tr>
-            <tr><th>Epoch</th></tr>
-            <tr><th>TLE Age</th></tr>
-            <!-- <tr><th>Mean Motion</th></tr> -->
-            <!-- <tr><th>Orbital Period</th></tr> -->
-            <!-- <tr><th>Semi-Major Axis</th><td>{sat.satrec.a}</td></tr> -->
-            <tr><th>Eccentricity</th></tr>
-            <!-- <tr><th>Apogee Height</th><td>{sat.satrec.a}</td></tr> -->
-            <!-- <tr><th>Perigee Height</th><td>{sat.satrec.satnum}</td></tr> -->
-            <tr><th>Inclination</th></tr>
-            <tr><th>RAAN</th></tr>
-            <tr><th>Arg of Perigee</th></tr>
-            <tr><th>Mean Anomaly</th></tr>
-            <tr><th>B*</th></tr>
-        {/if}
+        {/each}
     </tbody>
 </table>
 
