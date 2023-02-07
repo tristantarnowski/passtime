@@ -70,11 +70,7 @@
     }
 
     function getLocaleTimezoneAbbreviation() {
-        const tz = new Intl.DateTimeFormat("en-us", { timeZoneName: "short" })
-            .formatToParts(new Date())
-            .find((part) => part.type == "timeZoneName").value;
-
-        return tz;
+        return DateTime.local().toFormat("ZZZZ");
     }
 
     const formats = [
