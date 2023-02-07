@@ -87,9 +87,6 @@
 
     let selectedFormat = JSON.parse(localStorage.getItem("selectedFormat")) || Format.short12;
     let isUTC = JSON.parse(localStorage.getItem("isUTC")) || false;
-
-    const d = DateTime.fromJSDate(new Date());
-    console.log(d.toISO());
 </script>
 
 <label>Timezone</label>
