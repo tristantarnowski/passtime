@@ -10,31 +10,28 @@
 
     function getObjects(sat?: Satellite) {
         const objects = [
-            { header: "Name", data: [sat ? sat.name : ""] },
-            { header: "Catalog Number", data: [sat ? sat.satrec.satnum : ""] },
-            { header: "Epoch", data: [sat ? sat.epochDate.toISOString() : ""] },
+            { header: "Name", data: [sat?.name ?? ""] },
+            { header: "Catalog Number", data: [sat?.satrec.satnum ?? ""] },
+            { header: "Epoch", data: [sat?.epochDate.toISOString() ?? ""] },
             { header: "TLE Age", data: [sat ? (tleAge / 86400000).toFixed(2) + " days" : ""] },
-            { header: "Eccentricity", data: [sat ? sat.satrec.ecco : ""] },
+            { header: "Eccentricity", data: [sat?.satrec.ecco ?? ""] },
             {
                 header: "Inclination",
-                data: [sat ? satellite.radiansToDegrees(sat.satrec.inclo) + " degrees" : ""],
+                data: [satellite.radiansToDegrees(sat?.satrec.inclo) + " degrees" ?? ""],
             },
             {
                 header: "RAAN",
-                data: [sat ? satellite.radiansToDegrees(sat.satrec.nodeo) + " degrees" : ""],
+                data: [satellite.radiansToDegrees(sat?.satrec.nodeo) + " degrees" ?? ""],
             },
             {
                 header: "Arg of Perigee",
-                data: [sat ? satellite.radiansToDegrees(sat.satrec.argpo) + " degrees" : ""],
+                data: [satellite.radiansToDegrees(sat?.satrec.argpo) + " degrees" ?? ""],
             },
             {
                 header: "Mean Anomaly",
-                data: [sat ? satellite.radiansToDegrees(sat.satrec.mo) + " degrees" : ""],
+                data: [satellite.radiansToDegrees(sat?.satrec.mo) + " degrees" ?? ""],
             },
-            {
-                header: "B*",
-                data: [sat ? sat.satrec.bstar : ""],
-            },
+            { header: "B*", data: [sat?.satrec.bstar ?? ""] },
         ];
         return objects;
     }
