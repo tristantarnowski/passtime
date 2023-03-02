@@ -22,22 +22,22 @@
         <tr><th>Catalog Number</th><td>{sat ? sat.satrec.satnum : ""}</td></tr>
         <tr><th>Epoch</th><td>{sat ? sat.epochDate.toISOString() : ""}</td></tr>
         <tr><th>TLE Age</th><td>{sat ? (tleAge / 86400000).toFixed(2) + " days" : ""}</td></tr>
-        <tr><th>Mean Motion</th><td>{sat ? meanMotion.toFixed(8) : ""}</td></tr>
-        <tr><th>Orbital Period</th><td>{sat ? (period / 60).toFixed(2) : ""}</td></tr>
+        <tr><th>Mean Motion</th><td>{sat ? meanMotion.toFixed(8) + " rev/day" : ""}</td></tr>
+        <tr><th>Orbital Period</th><td>{sat ? (period / 60).toFixed(2) + " minutes" : ""}</td></tr>
         <tr
             ><th>Semi-Major Axis</th><td
-                >{sat ? ((sat.satrec.a * earthRadius) / 1000).toFixed(3) : ""}</td
+                >{sat ? ((sat.satrec.a * earthRadius) / 1000).toFixed(3) + " km" : ""}</td
             ></tr
         >
         <tr><th>Eccentricity</th><td>{sat ? sat.satrec.ecco.toFixed(7) : ""}</td></tr>
         <tr
             ><th>Apogee Height</th><td
-                >{sat ? ((sat.satrec.alta * earthRadius) / 1000).toFixed(3) : ""}</td
+                >{sat ? ((sat.satrec.alta * earthRadius) / 1000).toFixed(3) + " km" : ""}</td
             ></tr
         >
         <tr
             ><th>Perigee Height</th><td
-                >{sat ? ((sat.satrec.altp * earthRadius) / 1000).toFixed(3) : ""}</td
+                >{sat ? ((sat.satrec.altp * earthRadius) / 1000).toFixed(3) + " km" : ""}</td
             ></tr
         >
         <tr>
