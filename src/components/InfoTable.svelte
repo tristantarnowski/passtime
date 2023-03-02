@@ -14,9 +14,24 @@
         meanMotion = (sat.satrec.no_kozai / 2 / Math.PI) * 24 * 60; // rev/day
         period = 86400 / meanMotion; // seconds
     }
+
+    async function copy() {
+        if (tleAge > 86400000) {
+            alert("Warning: TLE is older than 1 day");
+        }
+
+        const rows = (document.getElementById("info") as HTMLTableElement).rows;
+        const data = rows[4];
+
+        const content = `<table>${data.outerHTML}</table>`;
+        const type = "text/html";
+        const blob = new Blob([content], { type });
+        navigator.clipboard.write([new ClipboardItem({ [type]: blob })]);
+    }
 </script>
 
-<table>
+<button on:click={copy}>Copy SGP4 Elements</button>
+<table id="info">
     <tbody>
         <tr><th>Name</th><td>{sat ? sat.name : ""}</td></tr>
         <tr><th>Catalog Number</th><td>{sat ? sat.satrec.satnum : ""}</td></tr>
