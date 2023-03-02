@@ -47,7 +47,7 @@ export class Satellite {
     constructor(tle: TLE) {
         this.name = tle.name;
         this.satrec = satellite.twoline2satrec(tle.line1, tle.line2);
-        this.epochDate = satellite.invjday(this.satrec.jdsatepoch);
+        this.epochDate = satellite.invjday(this.satrec.jdsatepoch) as Date;
     }
 
     altAz(observer: Location, date: Date): satellite.LookAngles {
