@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Satellite } from "../passtime/passtime";
     import * as satellite from "satellite.js";
+    import Sgp4Parameters from "./SGP4Parameters.svelte";
 
     export let sat: Satellite;
 
@@ -14,24 +15,9 @@
         meanMotion = (sat.satrec.no_kozai / 2 / Math.PI) * 24 * 60; // rev/day
         period = 86400 / meanMotion; // seconds
     }
-
-    async function copy() {
-        if (tleAge > 86400000) {
-            alert("Warning: TLE is older than 1 day");
-        }
-
-        const rows = (document.getElementById("info") as HTMLTableElement).rows;
-        const data = rows[4];
-
-        const content = `<table>${data.outerHTML}</table>`;
-        const type = "text/html";
-        const blob = new Blob([content], { type });
-        navigator.clipboard.write([new ClipboardItem({ [type]: blob })]);
-    }
 </script>
 
-<button on:click={copy}>Copy SGP4 Elements</button>
-<table id="info">
+<table>
     <tbody>
         <tr><th>Name</th><td>{sat ? sat.name : ""}</td></tr>
         <tr><th>Catalog Number</th><td>{sat ? sat.satrec.satnum : ""}</td></tr>
@@ -85,6 +71,7 @@
         <tr><th>B*</th><td>{sat ? sat.satrec.bstar : ""}</td></tr>
     </tbody>
 </table>
+<Sgp4Parameters {sat} />
 
 <style>
     tbody,
