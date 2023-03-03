@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Satellite } from "../passtime/passtime";
     import * as satellite from "satellite.js";
+    import Sgp4Parameters from "./SGP4Parameters.svelte";
 
     export let sat: Satellite;
 
@@ -70,6 +71,7 @@
         <tr><th>B*</th><td>{sat ? sat.satrec.bstar : ""}</td></tr>
     </tbody>
 </table>
+<Sgp4Parameters {sat} />
 
 <style>
     tbody,
