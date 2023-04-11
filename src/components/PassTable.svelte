@@ -122,6 +122,7 @@
             <th>Start Time ({isUTC ? "UTC" : getLocaleTimezoneAbbreviation()})</th>
             <th>Max Elevation (°)</th>
             <th>Duration (s)</th>
+            <th>End Time ({isUTC ? "UTC" : getLocaleTimezoneAbbreviation()})</th>
         </tr>
     </thead>
     {#each groups as group}
@@ -135,6 +136,7 @@
                     <td class="center">
                         {((pass.end.time.getTime() - pass.start.time.getTime()) / 1000).toFixed(0)}
                     </td>
+                    <td>{formatDate(pass.end.time, selectedFormat, isUTC)}</td>
                 </tr>
             {:else}
                 <tr>
