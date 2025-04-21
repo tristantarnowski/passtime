@@ -1,5 +1,5 @@
 import * as satellite from "satellite.js";
-import { findMaxima, findX } from "./search";
+import { findMaxima, findFirstX } from "./search";
 
 export type Degrees = number;
 export type Meters = number;
@@ -76,10 +76,10 @@ export class Satellite {
         maxima = maxima.filter(max => max[1] > satellite.degreesToRadians(minElev));
 
         for (const max of maxima) {
-            const maxPassLength = 400000;
+            const maxPassLength = 60 / (this.satrec.no_kozai / 2 / Math.PI) * 1000;
 
-            const startTime = findX(f, max[0] - maxPassLength / 2, max[0], satellite.degreesToRadians(minElev)).at(-1);
-            const endTime = findX(f, max[0], max[0] + maxPassLength / 2, satellite.degreesToRadians(minElev)).at(0);
+            const startTime = findFirstX(f, max[0] - maxPassLength / 2, max[0], satellite.degreesToRadians(minElev));
+            const endTime = findFirstX(f, max[0], max[0] + maxPassLength / 2, satellite.degreesToRadians(minElev));
 
             const start: Event = {
                 time: new Date(startTime),

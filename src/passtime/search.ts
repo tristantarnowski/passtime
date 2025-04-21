@@ -66,3 +66,28 @@ export function findX(f: Function, x1: number, x2: number, val: number): number[
 
     return results;
 }
+
+export function findFirstX(f: Function, x1: number, x2: number, val: number): number {
+
+    const stepSize = 100;
+
+    let x = x1;
+    let xPrev = 0,
+        yPrev = f(x);
+
+    while (x <= x2) {
+
+        let y = f(x);
+
+        if ((yPrev > val && val > y) || (yPrev < val && val < y)) {
+            // TODO check if val is closer to y or yPrev
+            return x;
+        }
+
+        xPrev = x;
+        x += stepSize;
+        yPrev = y;
+    }
+
+    return null;
+}
