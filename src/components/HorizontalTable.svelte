@@ -1,5 +1,10 @@
 <script lang="ts">
-    export let objects: { header: string; data?: (string | number)[] }[];
+    export class table_row {
+        header: string;
+        data?: (string | number)[];
+    }
+
+    export let objects: table_row[];
 </script>
 
 <table>

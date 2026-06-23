@@ -10,7 +10,7 @@
 
     function getObjects(sat?: Satellite) {
         const objects = [
-            { header: "Name", data: [sat?.name ?? ""] },
+            { header: "Name", data: [sat?.name] },
             { header: "Catalog Number", data: [sat?.satrec.satnum ?? ""] },
             { header: "Epoch", data: [sat?.epochDate.toISOString() ?? ""] },
             { header: "TLE Age", data: [sat ? (tleAge / 86400000).toFixed(2) + " days" : ""] },
