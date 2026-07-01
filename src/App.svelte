@@ -9,6 +9,7 @@
     import PassTable from "./components/PassTable.svelte";
     import InfoTable from "./components/InfoTable.svelte";
     import Footer from "./components/Footer.svelte";
+    import CurrentStatus from "./components/CurrentStatus.svelte";
     import { onMount } from "svelte";
     import { degreesLong } from "satellite.js";
 
@@ -187,6 +188,10 @@
     <section>
         <h2>TLE Information</h2>
         <InfoTable {sat} />
+    </section>
+    <section>
+        <h2>Current Status</h2>
+        <CurrentStatus sat={sat} observer={observer} nextPass={passes[0]} handleLOS={handleCompute}/>
     </section>
     <section>
         <h2>Upcoming Passes</h2>
